@@ -23,7 +23,7 @@ class App extends Component {
 
   GetStates = () => {
     $.ajax({
-      url: 'https://backend-weatherapp.herokuapp.com/states',
+      url: '/states',
       type: "GET",
       dataType: "json",
       crossDomain: true,
@@ -55,15 +55,15 @@ class App extends Component {
     //console.log(this.state.city);
     event.preventDefault();
     $.ajax({
-      url: 'https://backend-weatherapp.herokuapp.com/weather',
+      url: '/weather',
       type: 'post',
-      data: {city: this.state.city},
+      data: {city: this.state.city, state: this.state.state},
       dataType: 'json',
       success: searchResults => {
         //console.log("Fetched data successfully");
         // console.log(searchResults)
         const results = searchResults;
-        // console.log(results);
+        //console.log(results);
         // console.log(results.weather[0].description);
         // console.log(results.weather[0].icon);
         // console.log(Math.floor(results.main.temp));
@@ -98,7 +98,7 @@ class App extends Component {
     if(this.state.temp !==undefined && this.state.temp !== "" && this.state.temp !== null) {
       // console.log(this.state.temp)
       html = (
-<div className="row justify-content-center">
+          <div className="row justify-content-center">
                     <div className="col my-5">
                       <p> It is {this.state.temp} degrees in {this.state.city},{this.state.state} and {this.state.desc}</p>
                     </div>
@@ -108,7 +108,7 @@ class App extends Component {
       html = (
         <div className="row justify-content-center">
                     <div className="col my-5">
-                      <p> There was an error fetching the weather information, please check that you entered a city and state.</p>
+                      <p> {this.state.message}</p>
                     </div>
           </div>
       )
